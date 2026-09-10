@@ -9,6 +9,7 @@ load_dotenv()
 model = ChatOpenRouter(
     model=os.getenv("MODEL")
 )
+# we give the model a few examples of how to rewrite emails in a professional tone for an external client audience. The model will then use these examples to rewrite the user's email while keeping the core meaning intact.
 
 prompt = ChatPromptTemplate(
     [
@@ -24,6 +25,7 @@ prompt = ChatPromptTemplate(
     ]
 )
 
+# there are 3 variables in the prompt: tone, audience, and message. The user will provide values for these variables when invoking the chain.
 chain = prompt | model | StrOutputParser()
 
 response = chain.invoke({
